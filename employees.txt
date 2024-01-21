@@ -1,4 +1,4 @@
-Kiss Andor;raktáros;302567852;kiss.andor@bookline.hu
+Kiss Andor;raktáros;+36 (30) 256-7852;kiss.andor@bookline.hu
 Kelemen Kálmán;értékesítő;308955624;kelemen.kalman@bookline.hu
 Teszt Elek;raktáros;201648978;teszt.elek@bookline.hu
 Kis Piroska;titkárnő;201257895;kiss.piroska@bookline.hu
@@ -8,3 +8,5 @@ Kocsis Imre;értékesítő;205478956;kocsis.imre@bookline.hu
 Piros Alma;értékesítő;304582687;piros.alma@bookline.hu
 Hajdú András;raktáros;204526985;hajdu.andras@bookline.hu
 Bíró Andrea;értékesítő;309852365;biro.andrea@bookline.hu
+Bíró János;karbantartó;23234234234;valami@bookline.hu
+Hadházi Pál;karbantartó;+36 (20) 125-4568;hadhazi.pal@bookline.hu

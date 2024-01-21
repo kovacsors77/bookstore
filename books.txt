@@ -1,4 +1,4 @@
-Egri Csillagok;1953;Gárdonyi Géza;szépirodalom;500;1500
+Egri Csillagok;1995;Gárdonyi Géza;szépirodalom;1500;4300
 Kiskacsa fürdik;1977;Jónás Márton;ismeretterjesztő;510;1720
 Hangyaboly;2010;Kaffka Margit;szépirodalom;1999;2500
 A nyár veled kezdődik;1995;Vörös Viktória;szépirodalom;4000;4392

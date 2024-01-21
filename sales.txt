@@ -1,2 +1,5 @@
 Lelkes Amatőr;Pál utcai fiúk;2024.01.10;2560
 Kiss Piroska;Háború és béke;2024.01.15;2890
+Szerencsés János;A bátor feltaláló;2024.01.02;3900
+Hamar Antal;A nyár veled kezdődik;1995.12.20;4300
+Kelemen Kálmán;A magány a garzonban lakik;2024.01.08;4200

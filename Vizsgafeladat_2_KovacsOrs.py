@@ -24,6 +24,7 @@
 # o A legkelendőbb műfaj az adott időszakban  Adatok mentése fájlba  Adatok betöltése fájlból A feladat megoldható mind függvénnyekkel, mind objektum-orientáltan. A hallgató választhat.
 
 import os
+import re
 import sys
 import datetime
 
@@ -34,6 +35,15 @@ def Clear_Screen():         # Operációs rendszer szerinti képernyőtisztítá
         _ = os.system('clear')
     return
     
+def validate(date_text):
+    try:
+        if date_text != datetime.strptime(date_text, "%Y-%m-%d").strftime('%Y-%m-%d'):
+            raise ValueError
+        return True
+    except ValueError:
+        return False
+
+
 
 def First_UserInterface(): # Első lépsként megnyitjuk a 3 db adatfile-t...
     Clear_Screen()
@@ -105,7 +115,7 @@ def AccessFile_Sales(): # Értékesítés adatfile megnyitása...
         AccessFile_Sales()
     return sales_file_data,fullfilename
 
-def Menu_Interface(emp_file_data,books_file_data,sales_file_data):
+def Menu_Interface(emp_file_data,books_file_data,sales_file_data): # F Ő M E N Ü *********************************
     menuitem=" "
     while menuitem!='0':
         Clear_Screen()
@@ -117,6 +127,8 @@ def Menu_Interface(emp_file_data,books_file_data,sales_file_data):
         print("     3. ÉRTÉKESÍTÉS almenü\n")
         print()
         menuitem=input("Kérem válasszon az alábbi menüpontok közül! (KILÉPÉS - 0): ")
+        if menuitem=='0':
+            break
         if menuitem.isnumeric() and 0<int(menuitem)<4: 
             if menuitem=='1':
                 Emp_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
@@ -124,10 +136,9 @@ def Menu_Interface(emp_file_data,books_file_data,sales_file_data):
                 Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
             if menuitem=='3':
                 Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
-            break
     return
 
-def Emp_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
+def Emp_Menu_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKATÁRS almenü ***************************
     menuitem=" "
     while menuitem!='0':
         Clear_Screen()
@@ -141,6 +152,8 @@ def Emp_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
         print("     5. Munkatársak Riport\n")
         print()
         menuitem=input("Kérem válasszon az alábbi menüpontok közül! (VISSZALÉPÉS - 0): ")
+        if menuitem=='0':
+            break
         if menuitem.isnumeric() and 0<int(menuitem)<6: 
             if menuitem=='1':
                 New_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
@@ -152,8 +165,6 @@ def Emp_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
                 Delete_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
             if menuitem=='5':
                 List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
-            break
-    Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return
 
 def New_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
@@ -165,8 +176,27 @@ def New_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
     print()
     emp_fullname=input("Kérem a dolgozó teljes nevét!:")
     emp_jobname=input("Kérem a dolgozó beosztását!:")
-    emp_telnr=input("Kérem a dolgozó telefonszámát!(csak számokkal):")
-    emp_email=input("Kérem a dolgozó email címét! (ékezetes karakerek nélkül):")
+    
+    telnrOK=True                                                                # Telefonszám vizsgálata
+    while telnrOK:
+        emp_telnr=input("Kérem a dolgozó telefonszámát az alábbi formátumban! pl:+36 (30) 123-4567:")
+        match = re.search(r"^\+36 \(\d{1,2}\) \d{3}\-\d{3,4}$" , emp_telnr)
+        if match:
+            telnrOK = False
+        else:
+            telnrOK = True    
+ 
+    emailOK=True                                                                # Dátum bevitel vizsgálata
+    while emailOK:
+        emp_email=input("Kérem a dolgozó email címét! (ékezetes karakerek nélkül):")    
+        match = re.search(r"^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$", emp_email)
+        if match:
+            emailOK = False
+        else:
+            emailOK = True    
+    
+
+
     print()
     yesno=input("Mentsem az adatokat? (Y/N):")
     if yesno.upper()=="Y":
@@ -184,10 +214,10 @@ def Report_Emp_Std(emp_file_data,books_file_data,sales_file_data):
 
 def Report_Books_Std(emp_file_data,books_file_data,sales_file_data):
     c=1
-    print("Sorszám     Cím                     Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár")
+    print("Sorszám     Cím                         Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár")
     
     for r in books_file_data:
-        print(f"{c:<12}{r[0]:<24}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]:<20}{r[5]:<20}")
+        print(f"{c:<12}{r[0]:<28}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]+' Ft':<20}{r[5]+' Ft':<20}")
         c+=1
     return
 
@@ -195,7 +225,7 @@ def Report_All_Sales_Std(emp_file_data,books_file_data,sales_file_data):
     c=1
     print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár")
     for r in sales_file_data:
-        print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]:<35}")
+        print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]+' Ft':<35}")
         c+=1
     return
 
@@ -218,9 +248,26 @@ def Edit_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
     print()
     emp_fullname=input("Kérem a dolgozó teljes nevét!:")
     emp_jobname=input("Kérem a dolgozó beosztását!:")
-    emp_telnr=input("Kérem a dolgozó telefonszámát!(csak számokkal):")
-    emp_email=input("Kérem a dolgozó email címét! (ékezetes karakerek nélkül):")
-
+    telnrOK=True                                                                # Telefonszám vizsgálata
+    emp_telnr=" "
+    while telnrOK and emp_telnr!="":
+        emp_telnr=input("Kérem a dolgozó telefonszámát az alábbi formátumban! pl:+36 (30) 123-4567:")
+        match = re.search(r"^\+36 \(\d{1,2}\) \d{3}\-\d{3,4}$" , emp_telnr)
+        if match:
+            telnrOK = False
+        else:
+            telnrOK = True    
+ 
+    emp_email=" "
+    emailOK=True                                                                # Dátum bevitel vizsgálata
+    while emailOK and emp_email!="":
+        emp_email=input("Kérem a dolgozó email címét! (ékezetes karakerek nélkül):")    
+        match = re.search(r"^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$", emp_email)
+        if match:
+            emailOK = False
+        else:
+            emailOK = True    
+    
     yesno=input("Mentsem az adatokat? (Y/N):")
     if yesno.upper()=="Y":
 
@@ -325,6 +372,8 @@ def Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
         print("     5. Könyvek Riport\n")
         print()
         menuitem=input("Kérem válasszon az alábbi menüpontok közül! (VISSZALÉPÉS - 0): ")
+        if menuitem=='0':
+            break
         if menuitem.isnumeric() and 0<int(menuitem)<6: 
             if menuitem=='1':
                 New_Book_Interface(emp_file_data,books_file_data,sales_file_data)
@@ -336,8 +385,6 @@ def Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
                 Delete_Book_Interface(emp_file_data,books_file_data,sales_file_data)
             if menuitem=='5':
                 List_All_Books_Interface(emp_file_data,books_file_data,sales_file_data)
-            break
-    Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return
 
 
@@ -349,16 +396,41 @@ def New_Book_Interface(emp_file_data,books_file_data,sales_file_data):
     print("     1. Új könyv Rögzítése")
     print()
     book_title=input("Kérem a könyv teljes címét!: ")
-    book_year=input("Kérem a megjelenés évét!: ")
+    
+    yearOK=True                                                                # Dátum bevitel vizsgálata
+    while yearOK:
+        book_year=input("Kérem a megjelenés évét!: ")
+        match = re.search(r"^[0-9]{4}$", book_year)
+        if match:
+            yearOK = False
+        else:
+            yearOK = True    
+        
     book_author=input("Kérem a szerző nevét!: ")
     book_type=input("Kérem a műfaj megnevezését!: ")
-    book_selfcost=input("Kérem az önköltségi árat!: ")
-    book_saleprice=input("Kérem az potenciális eladási árat!: ")
+    
+    numberOK=True                                                                # Szám bevitel vizsgálata
+    while numberOK:
+        book_selfcost=input("Kérem az önköltségi árat!: ")
+        match = re.search(r"^[0-9]+$", book_selfcost)
+        if match:
+            numberOK = False
+        else:
+            numberOK = True    
+    
+    numberOK=True                                                                # Szám bevitel vizsgálata
+    while numberOK:
+        book_saleprice=input("Kérem az potenciális eladási árat!: ")    
+        match = re.search(r"^[0-9]+$", book_saleprice)
+        if match:
+            numberOK = False
+        else:
+            numberOK = True    
+       
     print()
     yesno=input("Mentsem az adatokat? (Y/N):")
     if yesno.upper()=="Y":
         books_file_data.append([book_title,book_year,book_author,book_type,book_selfcost,book_saleprice])
-    Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return    
 
 
@@ -379,11 +451,40 @@ def Edit_Book_Interface(emp_file_data,books_file_data,sales_file_data):
     print("A módosításhoz írja be az új értéket! Ha nem kíván módosítani, nyomjon ENTER-t!")
     print()
     book_title=input("Kérem a könyv teljes címét!: ")
-    book_year=input("Kérem a megjelenés évét!: ")
+
+    book_year=" " 
+    yearOK=True                                                                # Dátum bevitel vizsgálata
+    while yearOK and book_year!="":
+        book_year=input("Kérem a megjelenés évét!: ")
+        match = re.search(r"^[0-9]{4}$", book_year)
+        if match:
+            yearOK = False
+        else:
+            yearOK = True    
+       
     book_author=input("Kérem a szerző nevét!: ")
     book_type=input("Kérem a műfaj megnevezését!: ")
-    book_selfcost=input("Kérem az önköltségi árat!: ")
-    book_saleprice=input("Kérem az potenciális eladási árat!: ")
+    
+    book_selfcost=" "
+    numberOK=True                                                                # Szám bevitel vizsgálata
+    while numberOK and book_selfcost!="":
+        book_selfcost=input("Kérem az önköltségi árat!: ")
+        match = re.search(r"^[0-9]+$", book_selfcost)
+        if match:
+            numberOK = False
+        else:
+            numberOK = True    
+    
+    book_saleprice=" "
+    numberOK=True                                                                # Szám bevitel vizsgálata
+    while numberOK and book_saleprice!="":
+        book_saleprice=input("Kérem az potenciális eladási árat!: ")    
+        match = re.search(r"^[0-9]+$", book_saleprice)
+        if match:
+            numberOK = False
+        else:
+            numberOK = True    
+       
     
     yesno=input("Mentsem az adatokat? (Y/N):")
     if yesno.upper()=="Y":
@@ -399,8 +500,6 @@ def Edit_Book_Interface(emp_file_data,books_file_data,sales_file_data):
             books_file_data[int(valaszt_srsz)-1][4] = book_selfcost
         if book_saleprice:
             books_file_data[int(valaszt_srsz)-1][5] = book_saleprice
-    
-    Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return    
 
 def Search_Book_By_Title_Interface(emp_file_data,books_file_data,sales_file_data):
@@ -414,11 +513,11 @@ def Search_Book_By_Title_Interface(emp_file_data,books_file_data,sales_file_data
     
     book_title=input("Kérem a könyv címét!:")
     
-    print("Sorszám     Cím                     Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár")
+    print("Sorszám     Cím                         Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár")
     c=1
     for r in books_file_data:
         if book_title==([r][0][0][:len(book_title)]):
-            print(f"{c:<12}{r[0]:<24}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]:<20}{r[5]:<20}")
+            print(f"{c:<12}{r[0]:<28}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]+' Ft':<20}{r[5]+' Ft':<20}")
             c+=1
 
     yesno=input("Mentsem az adatokat külső File-ba? (Y/N):")
@@ -428,13 +527,12 @@ def Search_Book_By_Title_Interface(emp_file_data,books_file_data,sales_file_data
         filename_books=filename_books+".txt"
         c=1
         with open(filename_books, "w", encoding="utf-8") as f:
-            print("Sorszám     Cím                     Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár",file=f)
+            print("Sorszám     Cím                         Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár",file=f)
         
-        for r in books_file_data:
-            if book_title==([r][0][0][:len(book_title)]):
-                print(f"{c:<12}{r[0]:<24}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]:<20}{r[5]:<20}",file=f)
-                c+=1
-    Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
+            for r in books_file_data:
+                if book_title==([r][0][0][:len(book_title)]):
+                    print(f"{c:<12}{r[0]:<28}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]+' Ft':<20}{r[5]+' Ft':<20}",file=f)
+                    c+=1
     return   
 
 
@@ -456,7 +554,6 @@ def Delete_Book_Interface(emp_file_data,books_file_data,sales_file_data):
     
     if yesno.upper()=="Y":
         books_file_data.pop(int(valaszt_srsz)-1)
-    Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return    
 
 
@@ -480,11 +577,10 @@ def List_All_Books_Interface(emp_file_data,books_file_data,sales_file_data):
         filename_allbook=filename_allbook+".txt"
         c=1
         with open(filename_allbook, "w", encoding="utf-8") as f:
-            print("Sorszám     Cím                     Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár",file=f)
-        for r in books_file_data:
-            print(f"{c:<12}{r[0]:<24}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]:<20}{r[5]:<20}",file=f)
-            c+=1
-    Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
+            print("Sorszám     Cím                         Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár",file=f)
+            for r in books_file_data:
+                print(f"{c:<12}{r[0]:<28}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]+' Ft':<20}{r[5]+' Ft':<20}",file=f)
+                c+=1
     return   
 
 def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
@@ -506,6 +602,8 @@ def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
         print("     10. Teljes nyereség az adott időszakban Riport\n")
         print()
         menuitem=input("Kérem válasszon az alábbi menüpontok közül! (VISSZALÉPÉS - 0): ")
+        if menuitem=='0':
+            break
         if menuitem.isnumeric() and 0<int(menuitem)<11: 
             if menuitem=='1':
                 New_Sales_Interface(emp_file_data,books_file_data,sales_file_data)
@@ -517,8 +615,6 @@ def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
                 Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data)
         #     if menuitem=='5':
         #         # List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
-            break
-    Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return
 
 
@@ -530,15 +626,37 @@ def New_Sales_Interface(emp_file_data,books_file_data,sales_file_data):
     print()
     print("     1. Könyvértékesítés Rögzítése")
     print()
-    sales_title=input("Kérem a könyv teljes címét!: ")
-    sales_date=input("Kérem az értékesítés dátumát (ÉÉÉÉ.HH.NN formátumban!: ")
+    book_title=input("Kérem a könyv címét!:")  
+    print("Sorszám     Cím                         Megj.éve            Szerző              Műfaj               Önköltségi ár       Potenciális eladási ár")
+    book_sales_list=[]
+    c=1
+    for r in books_file_data:
+        if book_title==([r][0][0][:len(book_title)]):
+            sales_raw=(c,r[0])
+            book_sales_list.append(sales_raw)
+            print(f"{c:<12}{r[0]:<28}{r[1]:<20}{r[2]:<20}{r[3]:<20}{r[4]+' Ft':<20}{r[5]+' Ft':<20}")
+            c+=1
+    valaszt_srsz=input("Melyik sorszámú könyvet szeretnéd értékesíteni?: ")
+    if valaszt_srsz=="":
+        return
+
+    sales_title=book_sales_list[int(valaszt_srsz)-1][1]
+
+    datumOK=True                                                                # Dátum bevitel vizsgálata
+    while datumOK:
+        sales_date=input("Kérem az értékesítés dátumát (ÉÉÉÉ.HH.NN formátumban!: ")    
+        match = re.search(r"^[0-9]{4}+\.[0-9]{2}+\.[0-9]{2}$" , sales_date)
+        if match:
+            datumOK = False
+        else:
+            datumOK = True    
+    
     sales_employee=input("Kérem az értékesítő kolléga nevét!: ")
     sales_price=input("Kérem a tényleges eladási árat (Ft)!: ")
     print()
     yesno=input("Mentsem az adatokat? (Y/N):")
     if yesno.upper()=="Y":
         sales_file_data.append([sales_employee,sales_title,sales_date,sales_price])
-    Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return    
 
 
@@ -560,7 +678,6 @@ def Delete_Sales_Interface(emp_file_data,books_file_data,sales_file_data):
     
     if yesno.upper()=="Y":
         sales_file_data.pop(int(valaszt_srsz)-1)
-    Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return    
 
 
@@ -586,8 +703,8 @@ def All_Sales_Report_Interface(emp_file_data,books_file_data,sales_file_data):
             for r in sales_file_data:
                 f.write(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]:<35}\n")
                 c+=1
-    Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
     return    
+
 
 
 
@@ -600,15 +717,32 @@ def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data
     print("     4. Adott időszak értékesítési Riport")
     print()
     
-    sales_date1=input("Kérem adja meg az intervallum kezdő dátumát!: ")
-    sales_date2=input("Kérem adja meg az intervallum végső dátumát!: ")
+    datumOK=True                                                                # Dátum bevitel vizsgálata
+    while datumOK:
+        sales_date1=input("Kérem adja meg az intervallum kezdő dátumát (ÉÉÉÉ.HH.NN)!: ")
+        match = re.search(r"^[0-9]{4}+\.[0-9]{2}+\.[0-9]{2}$" , sales_date1)
+        if match:
+            datumOK = False
+        else:
+            datumOK = True
+    
+    datumOK=True
+    while datumOK:
+        sales_date2=input("Kérem adja meg az intervallum végső dátumát (ÉÉÉÉ.HH.NN)!: ")
+        match = re.search(r"^[0-9]{4}+\.[0-9]{2}+\.[0-9]{2}$" , sales_date2)
+        if match:
+            datumOK = False
+        else:
+            datumOK = True
+    
+
     sales_date_list=[sales_date1,sales_date2]
     sales_date_list.sort()
     print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár")  
     c=1
     for r in sales_file_data:
         if sales_date_list[0]<([r][0][2])<sales_date_list[1]:
-            print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]:<35}")
+            print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]+' Ft':<35}")
             c+=1
     yesno=input("Mentsem az adatokat külső File-ba? (Y/N):")
     
@@ -620,9 +754,8 @@ def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data
             print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár",file=f)  
             for r in sales_file_data:
                 if sales_date_list[0]<([r][0][2])<sales_date_list[1]:
-                    print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]:<35}",file=f)
-            c+=1
-    Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data)
+                    print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]+' Ft':<35}",file=f)
+                    c+=1
     return   
 
 
