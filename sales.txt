@@ -7,3 +7,4 @@ Fehér Anna;Egri Csillagok;2012.01.25;4300
 Kocsis Imre;Ház a fenyvesben;2019.07.25;4400
 Nagy Tibor;Egri Csillagok;2020.01.25;4300
 Bíró Andrea;Nukleáris tél;2019.08.02;5200
+Kelemen Kálmán;A láthatatlan ember;2001.12.15;3200

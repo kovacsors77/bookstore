@@ -13,3 +13,4 @@ A magány a garzonban lakik;2019;Manger Adrienn;szépirodalom;3350;3950
 Ház a fenyvesben;2020;Ana Reyes;krimi;3500;4490
 Káin;1999;Kosztolányi Dezső;művészeti;1500;1998
 Szürke Gyémánt;2021;Schné Anna;szépirodalom;4800;5860
+A láthatatlan ember;1902;Gárdonyi Géza;szépirodalom;1850;3200
