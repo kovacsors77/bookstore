@@ -223,9 +223,9 @@ def Report_Books_Std(emp_file_data,books_file_data,sales_file_data):
 
 def Report_All_Sales_Std(emp_file_data,books_file_data,sales_file_data):
     c=1
-    print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár")
+    print("Sorszám     Munkatárs               Könyv                         Értékesítés dátuma       Tényleges eladási ár")
     for r in sales_file_data:
-        print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]+' Ft':<35}")
+        print(f"{c:<12}{r[0]:<24}{r[1]:<30}{r[2]:<25}{r[3]+' Ft':<35}")
         c+=1
     return
 
@@ -613,8 +613,11 @@ def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
                 All_Sales_Report_Interface(emp_file_data,books_file_data,sales_file_data)
             if menuitem=='4':
                 Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data)
-        #     if menuitem=='5':
-        #         # List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
+            if menuitem=='5':
+                Search_Sales_By_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
+            if menuitem=='6':
+                Search_SalesBook_By_Date_Interface(emp_file_data,books_file_data,sales_file_data)
+        
     return
 
 
@@ -698,14 +701,12 @@ def All_Sales_Report_Interface(emp_file_data,books_file_data,sales_file_data):
         filename_allsales=input("Kérlek írd be a File nevét! :")
         filename_allsales=filename_allsales+".txt"
         with open(filename_allsales, "w", encoding="utf-8") as f:
-            print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár",file=f)        
+            print("Sorszám     Munkatárs               Könyv                         Értékesítés dátuma       Tényleges eladási ár",file=f)        
             c=1
             for r in sales_file_data:
-                f.write(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]:<35}\n")
+                f.write(f"{c:<12}{r[0]:<24}{r[1]:<30}{r[2]:<25}{r[3]+' Ft':<35}\n")
                 c+=1
     return    
-
-
 
 
 def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
@@ -741,7 +742,7 @@ def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data
     print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár")  
     c=1
     for r in sales_file_data:
-        if sales_date_list[0]<([r][0][2])<sales_date_list[1]:
+        if sales_date_list[0]<=([r][0][2])<=sales_date_list[1]:
             print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]+' Ft':<35}")
             c+=1
     yesno=input("Mentsem az adatokat külső File-ba? (Y/N):")
@@ -753,10 +754,117 @@ def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data
         with open(filename_sales, "w", encoding="utf-8") as f:
             print("Sorszám     Munkatárs               Könyv                    Értékesítés dátuma            Tényleges eladási ár",file=f)  
             for r in sales_file_data:
-                if sales_date_list[0]<([r][0][2])<sales_date_list[1]:
+                if sales_date_list[0]<=([r][0][2])<=sales_date_list[1]:
                     print(f"{c:<12}{r[0]:<24}{r[1]:<25}{r[2]:<30}{r[3]+' Ft':<35}",file=f)
                     c+=1
     return   
+
+def Search_Sales_By_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
+    Clear_Screen()
+    lines=list()
+    print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
+    print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
+    print()
+    print("     5. Egy adott alkalmazott értékesítési Riport\n")
+    print()
+    emp_fullname=input("Kérem a dolgozó teljes nevét!:")
+
+    print("Sorszám     Munkatárs               Könyv                         Értékesítés dátuma       Tényleges eladási ár")
+    c=1
+    for r in sales_file_data:
+        if emp_fullname==([r][0][0]):
+            print(f"{c:<12}{r[0]:<24}{r[1]:<30}{r[2]:<25}{r[3]+' Ft':<35}")
+            c+=1
+    yesno=input("Mentsem az adatokat külső File-ba? (Y/N):")
+    
+    if yesno.upper()=="Y":
+        filename_sales=input("Kérlek írd be a File nevét! :")
+        filename_sales=filename_sales+".txt"
+        c=1
+        with open(filename_sales, "w", encoding="utf-8") as f:
+            print("Sorszám     Munkatárs               Könyv                         Értékesítés dátuma       Tényleges eladási ár",file=f)  
+            for r in sales_file_data:
+                if emp_fullname==([r][0][0]):
+                    print(f"{c:<12}{r[0]:<24}{r[1]:<30}{r[2]:<25}{r[3]+' Ft':<35}",file=f)
+                    c+=1
+    return   
+
+
+def Search_SalesBook_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+    Clear_Screen()
+    lines=list()
+    print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
+    print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
+    print()
+    print("     6. A legkeresettebb könyv egy adott időszakban Riport\n")
+    print()
+    
+    datumOK=True                                                                # Dátum bevitel vizsgálata
+    while datumOK:
+        sales_date1=input("Kérem adja meg az intervallum kezdő dátumát (ÉÉÉÉ.HH.NN)!: ")
+        match = re.search(r"^[0-9]{4}+\.[0-9]{2}+\.[0-9]{2}$" , sales_date1)
+        if match:
+            datumOK = False
+        else:
+            datumOK = True
+    
+    datumOK=True
+    while datumOK:
+        sales_date2=input("Kérem adja meg az intervallum végső dátumát (ÉÉÉÉ.HH.NN)!: ")
+        match = re.search(r"^[0-9]{4}+\.[0-9]{2}+\.[0-9]{2}$" , sales_date2)
+        if match:
+            datumOK = False
+        else:
+            datumOK = True
+    
+
+    sales_date_list=[sales_date1,sales_date2]
+    sales_date_list.sort()
+    print("Sorszám     Munkatárs               Könyv                         Értékesítés dátuma       Tényleges eladási ár")  
+    sales_book_list=list()
+    c=1
+    x=0
+    for r in sales_file_data:
+        if sales_date_list[0]<=([r][0][2])<=sales_date_list[1]:
+            salesbook=(([r][0][1]))
+            sales_book_list.append(salesbook)
+    salesbook_set=set(sales_book_list)
+    
+    booklist=[]
+    for sb in salesbook_set:
+        c=0
+        for r in sales_file_data:
+            if sb==([r][0][1]):
+                c+=1
+        row=sb,c
+        booklist.append(row)
+            
+    bookname=""
+    bookcount=0
+    for bl in booklist:
+        if bl[1]>bookcount:
+            bookname=(bl[0])
+            bookcount=(bl[1])
+
+    for r in sales_file_data:
+        if bookname==([r][0][1]):
+            print(f"{c:<12}{r[0]:<24}{r[1]:<30}{r[2]:<25}{r[3]+' Ft':<35}")
+            c+=1
+
+    yesno=input("Mentsem az adatokat külső File-ba? (Y/N):")
+    
+    if yesno.upper()=="Y":
+        filename_sales=input("Kérlek írd be a File nevét! :")
+        filename_sales=filename_sales+".txt"
+        c=1
+        with open(filename_sales, "w", encoding="utf-8") as f:
+            print("Sorszám     Munkatárs               Könyv                         Értékesítés dátuma       Tényleges eladási ár",file=f)  
+            for r in sales_file_data:
+                if bookname==([r][0][1]):
+                    print(f"{c:<12}{r[0]:<24}{r[1]:<30}{r[2]:<25}{r[3]+' Ft':<35}",file=f)
+                    c+=1
+    return   
+
 
 
 def Save_Data_Emp_Files(data, fullfilename):

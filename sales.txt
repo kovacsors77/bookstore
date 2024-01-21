@@ -1,5 +1,9 @@
-Lelkes Amatőr;Pál utcai fiúk;2024.01.10;2560
-Kiss Piroska;Háború és béke;2024.01.15;2890
-Szerencsés János;A bátor feltaláló;2024.01.02;3900
-Hamar Antal;A nyár veled kezdődik;1995.12.20;4300
-Kelemen Kálmán;A magány a garzonban lakik;2024.01.08;4200
+Kelemen Kálmán;Egri Csillagok;1988.05.24;4300
+Sánta Péter;Ház a fenyvesben;1995.08.28;4400
+Kis Piroska;A nyár veled kezdődik;2001.05.14;4300
+Kiss Andor;Kiskacsa fürdik;2010.07.16;1700
+Hajdú András;Szerelmek tavasza;2005.08.19;4400
+Fehér Anna;Egri Csillagok;2012.01.25;4300
+Kocsis Imre;Ház a fenyvesben;2019.07.25;4400
+Nagy Tibor;Egri Csillagok;2020.01.25;4300
+Bíró Andrea;Nukleáris tél;2019.08.02;5200
