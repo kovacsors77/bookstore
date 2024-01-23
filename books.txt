@@ -1,5 +1,5 @@
 Egri Csillagok;1995;Gárdonyi Géza;szépirodalom;1500;4300
-Kiskacsa fürdik;1977;Jónás Márton;ismeretterjesztő;510;1720
+Kiskacsa fürdik;1977;Jónás Márton;ismeretterjesztő;680;1720
 Hangyaboly;2010;Kaffka Margit;szépirodalom;1999;2500
 A nyár veled kezdődik;1995;Vörös Viktória;szépirodalom;4000;4392
 Családi titkok;2001;Patricia Scanlan;szakkönyv;3000;3432
@@ -14,3 +14,4 @@ Ház a fenyvesben;2020;Ana Reyes;krimi;3500;4490
 Káin;1999;Kosztolányi Dezső;művészeti;1500;1998
 Szürke Gyémánt;2021;Schné Anna;szépirodalom;4800;5860
 A láthatatlan ember;1902;Gárdonyi Géza;szépirodalom;1850;3200
+Vak asszony visszanéz;2021;Suhajda András;krimi;2560;4205
