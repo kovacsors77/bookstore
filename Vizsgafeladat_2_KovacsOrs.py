@@ -157,7 +157,8 @@ def Emp_Menu_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKAT�
                 List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
     return
 
-def New_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
+def New_Emp_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKATÁRS almenü 1 ***************************
+    menuitem=" "
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - MUNKATÁRS almenü -                      ")      
@@ -176,7 +177,7 @@ def New_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
         else:
             telnrOK = True    
  
-    emailOK=True                                                                # Dátum bevitel vizsgálata
+    emailOK=True                                                                # Email bevitel vizsgálata
     while emailOK:
         emp_email=input("Kérem a dolgozó email címét! (ékezetes karakerek nélkül):")    
         match = re.search(r"^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$", emp_email)
@@ -222,7 +223,7 @@ def Report_All_Sales_Std(emp_file_data,books_file_data,sales_file_data):
     return
 
 
-def Edit_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
+def Edit_Emp_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKATÁRS almenü 2 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - MUNKATÁRS almenü -                      ")      
@@ -250,7 +251,7 @@ def Edit_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
             telnrOK = True    
  
     emp_email=" "
-    emailOK=True                                                                # Dátum bevitel vizsgálata
+    emailOK=True                                                                # Email bevitel vizsgálata
     while emailOK and emp_email!="":
         emp_email=input("Kérem a dolgozó email címét! (ékezetes karakerek nélkül):")    
         match = re.search(r"^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$", emp_email)
@@ -272,7 +273,7 @@ def Edit_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
             emp_file_data[int(valaszt_srsz)-1][3] = emp_email
     return    
 
-def Search_Emp_By_Fullname_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_Emp_By_Fullname_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKATÁRS almenü 3 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - MUNKATÁRS almenü -                      ")      
@@ -304,7 +305,7 @@ def Search_Emp_By_Fullname_Interface(emp_file_data,books_file_data,sales_file_da
                     c+=1
     return   
 
-def Delete_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
+def Delete_Emp_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKATÁRS almenü 4 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - MUNKATÁRS almenü -                      ")      
@@ -324,7 +325,7 @@ def Delete_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
     return    
 
 
-def List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
+def List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data): # MUNKATÁRS almenü 5 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - MUNKATÁRS almenü -                      ")      
@@ -348,7 +349,7 @@ def List_All_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
                 c+=1
     return   
 
-def Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
+def Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data): # KÖNYVEK almenü ***************************
     menuitem=" "
     while menuitem!='0':
         Clear_Screen()
@@ -378,7 +379,7 @@ def Book_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
     return
 
 
-def New_Book_Interface(emp_file_data,books_file_data,sales_file_data):
+def New_Book_Interface(emp_file_data,books_file_data,sales_file_data): # KÖNYVEK almenü 1 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - KÖNYVEK almenü -                        ")      
@@ -424,7 +425,7 @@ def New_Book_Interface(emp_file_data,books_file_data,sales_file_data):
     return    
 
 
-def Edit_Book_Interface(emp_file_data,books_file_data,sales_file_data):
+def Edit_Book_Interface(emp_file_data,books_file_data,sales_file_data): # KÖNYVEK almenü 2 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - KÖNYVEK almenü -                        ")      
@@ -491,7 +492,7 @@ def Edit_Book_Interface(emp_file_data,books_file_data,sales_file_data):
             books_file_data[int(valaszt_srsz)-1][5] = book_saleprice
     return    
 
-def Search_Book_By_Title_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_Book_By_Title_Interface(emp_file_data,books_file_data,sales_file_data): # KÖNYVEK almenü 3 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - KÖNYVEK almenü -                        ")      
@@ -524,7 +525,7 @@ def Search_Book_By_Title_Interface(emp_file_data,books_file_data,sales_file_data
     return   
 
 
-def Delete_Book_Interface(emp_file_data,books_file_data,sales_file_data):
+def Delete_Book_Interface(emp_file_data,books_file_data,sales_file_data): # KÖNYVEK almenü 4 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - KÖNYVEK almenü -                        ")     
@@ -544,7 +545,7 @@ def Delete_Book_Interface(emp_file_data,books_file_data,sales_file_data):
     return    
 
 
-def List_All_Books_Interface(emp_file_data,books_file_data,sales_file_data):
+def List_All_Books_Interface(emp_file_data,books_file_data,sales_file_data): # KÖNYVEK almenü 5 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                       - KÖNYVEK almenü -                        ")       
@@ -569,7 +570,7 @@ def List_All_Books_Interface(emp_file_data,books_file_data,sales_file_data):
                 c+=1
     return   
 
-def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
+def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü ***************************
     menuitem=" "
     while menuitem!='0':
         Clear_Screen()
@@ -615,7 +616,7 @@ def Sales_Menu_Interface(emp_file_data,books_file_data,sales_file_data):
     return
 
 
-def New_Sales_Interface(emp_file_data,books_file_data,sales_file_data):
+def New_Sales_Interface(emp_file_data,books_file_data,sales_file_data):# ÉRTÉKESÍTÉS almenü 1 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")
@@ -658,7 +659,7 @@ def New_Sales_Interface(emp_file_data,books_file_data,sales_file_data):
     return    
 
 
-def Delete_Sales_Interface(emp_file_data,books_file_data,sales_file_data):
+def Delete_Sales_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 2 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")    
@@ -680,7 +681,7 @@ def Delete_Sales_Interface(emp_file_data,books_file_data,sales_file_data):
 
 
 
-def All_Sales_Report_Interface(emp_file_data,books_file_data,sales_file_data):
+def All_Sales_Report_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 3 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")
@@ -704,7 +705,7 @@ def All_Sales_Report_Interface(emp_file_data,books_file_data,sales_file_data):
     return    
 
 
-def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 4 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
@@ -755,7 +756,7 @@ def Search_Sales_By_Date_Interface(emp_file_data,books_file_data,sales_file_data
                     c+=1
     return   
 
-def Search_Sales_By_Emp_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_Sales_By_Emp_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 5 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
@@ -787,7 +788,7 @@ def Search_Sales_By_Emp_Interface(emp_file_data,books_file_data,sales_file_data)
     return   
 
 
-def Search_SalesBook_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_SalesBook_By_Date_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 6 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
@@ -871,7 +872,7 @@ def Search_SalesBook_By_Date_Interface(emp_file_data,books_file_data,sales_file_
 
 
 
-def Search_Author_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_Author_By_Date_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 7 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
@@ -960,7 +961,7 @@ def Search_Author_By_Date_Interface(emp_file_data,books_file_data,sales_file_dat
 
 
 
-def Search_BestsalesMan_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_BestsalesMan_By_Date_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 8 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
@@ -1045,7 +1046,7 @@ def Search_BestsalesMan_By_Date_Interface(emp_file_data,books_file_data,sales_fi
 
 
 
-def Search_BestGenre_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_BestGenre_By_Date_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 9 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
@@ -1131,7 +1132,7 @@ def Search_BestGenre_By_Date_Interface(emp_file_data,books_file_data,sales_file_
     return   
 
 
-def Search_Totalprofit_By_Date_Interface(emp_file_data,books_file_data,sales_file_data):
+def Search_Totalprofit_By_Date_Interface(emp_file_data,books_file_data,sales_file_data): # ÉRTÉKESÍTÉS almenü 10 ***************************
     Clear_Screen()
     print("* * * * * * * *  KÖNYVESBOLT Információs Központ * * * * * * * * ")
     print("                      - ÉRTÉKESÍTÉS almenü -                     ")     
