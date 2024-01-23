@@ -1,13 +1,13 @@
 Kiss Andor;raktáros;+36 (30) 256-7852;kiss.andor@bookline.hu
 Kelemen Kálmán;értékesítő;+36 (30) 895-5624;kelemen.kalman@bookline.hu
-Teszt Elek;raktáros;201648978;teszt.elek@bookline.hu
-Kis Piroska;titkárnő;201257895;kiss.piroska@bookline.hu
-Nagy Tibor;értékesítő;203542548;nagy.tibor@bookline.hu
-Fehér Anna;könyvelő;302547893;feher.anna@bookline.hu
-Kocsis Imre;értékesítő;205478956;kocsis.imre@bookline.hu
-Piros Alma;értékesítő;304582687;piros.alma@bookline.hu
-Hajdú András;raktáros;204526985;hajdu.andras@bookline.hu
-Bíró Andrea;értékesítő;309852365;biro.andrea@bookline.hu
-Bíró János;karbantartó;23234234234;valami@bookline.hu
+Teszt Elek;raktáros;+36 (20) 164-8978;teszt.elek@bookline.hu
+Kis Piroska;titkárnő;+36 (20) 125-7895;kiss.piroska@bookline.hu
+Nagy Tibor;értékesítő;+36 (20) 354-2548;nagy.tibor@bookline.hu
+Fehér Anna;könyvelő;+36 (30) 254-7893;feher.anna@bookline.hu
+Kocsis Imre;értékesítő;+36 (20) 547-8956;kocsis.imre@bookline.hu
+Piros Alma;értékesítő;+36 (30) 458-2687;piros.alma@bookline.hu
+Hajdú András;raktáros;+36 (20) 452-6985;hajdu.andras@bookline.hu
+Bíró Andrea;értékesítő;+36 (30) 985-2365;biro.andrea@bookline.hu
+Bíró János;karbantartó;+36 (20) 258-7796;valami@bookline.hu
 Hadházi Pál;karbantartó;+36 (20) 125-4568;hadhazi.pal@bookline.hu
 Rozoga Richárd;raktáros;+36 (20) 254-4589;rozoga.richard@bookline.hu
